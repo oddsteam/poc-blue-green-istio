@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: poc-blue-green
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - poc-blue-green-gateway
+  http:
+  - route:
+    - destination:
+        host: poc-blue-green
+        subset: blue
+      weight: 0
+    - destination:
+        host: poc-blue-green
+        subset: green
+      weight: 100

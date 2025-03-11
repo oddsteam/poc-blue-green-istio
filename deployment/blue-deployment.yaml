@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-deployment
+  labels:
+    app: poc-blue-green
+    version: blue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-blue-green
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: poc-blue-green
+        version: blue
+    spec:
+      containers:
+      - name: blue
+        image: ghcr.io/oddsteam/poc-blue-green-istio:blue-latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi 
